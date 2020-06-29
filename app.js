@@ -5,18 +5,20 @@ const handlebars = require('express-handlebars');
 
 const app = express();
 
-app.set('view engine', 'handlebars');
-app.engine('handlebars', handlebars());
+app.engine('.hbs', handlebars({
+    extname: '.hbs'
+}));
+app.set('view engine', '.hbs');
 
 app.use(express.static('public'));
 
 app.get('/', (req,res) => {
-  res.send('index')
+  res.render('game')
 })
 
-app.get('/game', (req,res) => {
-    res.render('game')
-})
+app.get('/*', (req,res) => {
+    res.send('404: Not Found')
+})  
 
 app.listen(port, ()=>{
   console.log(`Server started on port ${port}`)
