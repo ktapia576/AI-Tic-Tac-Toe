@@ -1,14 +1,15 @@
+// 0 = empty; 1 = X; -1 = O;
 let board = [
-    ['','',''],
-    ['','',''],
-    ['','','']
+    [0,0,0],
+    [0,0,0],
+    [0,0,0]
 ];
 
 let w;
 let h;
 
-let bot = 'X';
-let human = 'O';
+let bot = 1;
+let human = -1;
 let currentPlayer = bot;
 
 function setup() {
@@ -30,7 +31,7 @@ function randomMove() {
       let col = Math.floor(Math.random() * 3);
       
       // If turn is valid (space not filled)
-      if (board[row][col] == '') {
+      if (board[row][col] == 0) {
         board[row][col] = bot;
         currentPlayer = human;
         valid = true;  // set true to break out of loop
@@ -48,7 +49,7 @@ function mouseClicked() {
     console.log(`row: ${row} col: ${col}`);
     
     // If turn is valid (space not filled) and the user didnt click outside canvas
-    if (row < 3 && col < 3 && board[row][col] == '') {
+    if (row < 3 && col < 3 && board[row][col] == 0) {
       board[row][col] = human;
       currentPlayer = bot;
       randomMove();
@@ -73,11 +74,13 @@ function draw() {
             
             let mark = board[i][j];
             strokeWeight(4);
-            if (mark == "X") {
+          
+            // 1 = X; -1 = O;
+            if (mark == 1) {
               let r = w/4;  // divide into 4 parts and use for creating the lines
               line(x - r, y - r, x + r, y + r);  // move pointer to make line using xr (x1,y1,x2,y2) 
               line(x + r, y - r, x - r, y + r);
-            } else if (mark == "O") {
+            } else if (mark == -1) {
               noFill();
               ellipse(x,y,w/1.6);
             }
