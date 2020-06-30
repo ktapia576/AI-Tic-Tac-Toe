@@ -47,8 +47,8 @@ function mouseClicked() {
     
     console.log(`row: ${row} col: ${col}`);
     
-    // If turn is valid (space not filled)
-    if (board[row][col] == '') {
+    // If turn is valid (space not filled) and the user didnt click outside canvas
+    if (row < 3 && col < 3 && board[row][col] == '') {
       board[row][col] = human;
       currentPlayer = bot;
       randomMove();
