@@ -23,6 +23,7 @@ function setup() {
   h = height / 3;  // get height divided into three parts
 
   randomMove();
+  noLoop();
 }
 
 function randomMove() {
@@ -41,6 +42,8 @@ function randomMove() {
         
         // Check if move wins
         checkWinner();
+        redraw();
+        
         if(winner === null) {
           currentPlayer = human;
         }
@@ -62,11 +65,13 @@ function mouseClicked() {
     // If turn is valid (space not filled) and the user didnt click outside canvas
     if (row < 3 && col < 3 && board[row][col] == 0) {
       board[row][col] = human;
+      currentPlayer = bot;
       
       //Check if move wins
       checkWinner(); 
+      redraw();
+      
       if(winner === null) {
-        currentPlayer = bot;
         randomMove();
       }
     }
@@ -172,7 +177,6 @@ function draw() {
   }
 
   if(winner !== null) {
-    noLoop();
     console.log(winner);
   }
 }
