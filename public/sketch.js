@@ -55,23 +55,21 @@ function randomMove() {
 }
 
 function mouseClicked() {
-  if (currentPlayer == human) {
+  if (currentPlayer == human && winner === null) {
     // Only when human's turn is up
     let row = Math.floor(mouseY/h);  // Divide the mouse position in y axis by h and apply floor to get col index in array
     let col = Math.floor(mouseX/w);  // Divide the mouse position in x axis by w and apply floor to get row index in array
 
-    // console.log(`row: ${row} col: ${col}`);
-
     // If turn is valid (space not filled) and the user didnt click outside canvas
     if (row < 3 && col < 3 && board[row][col] == 0) {
       board[row][col] = human;
-      currentPlayer = bot;
       
       //Check if move wins
       checkWinner(); 
       redraw();
       
       if(winner === null) {
+        currentPlayer = bot;
         randomMove();
       }
     }
@@ -148,6 +146,7 @@ function checkWinner() {
 
 function draw() {
   background(255);
+  strokeWeight(3);
   
   // Create grid lines for tic tac toe
   line(w, 0, w, height);
@@ -162,7 +161,6 @@ function draw() {
       let y = h * i + h/2;  // move y pointer based off of row number Lastly, add half of h to move pointer center
       
       let mark = board[i][j];
-      strokeWeight(4);
     
       // 1 = X; -1 = O;
       if (mark == 1) {
