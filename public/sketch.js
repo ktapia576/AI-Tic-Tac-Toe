@@ -27,7 +27,7 @@ function setup() {
 }
 
 function randomMove() {
-  if (currentPlayer == bot) {
+  if (currentPlayer == bot && winner === null) {
     // Only when bot's turn
     let valid = false; 
 
