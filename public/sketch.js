@@ -13,7 +13,6 @@ let h;
 
 // Game States
 let winner = null;  // If there is winner game ends
-let openSpots = true;
 let currentPlayer = bot;
 
 function setup() {
@@ -22,37 +21,37 @@ function setup() {
   w = width / 3;  // get width divided into three parts
   h = height / 3;  // get height divided into three parts
 
-  randomMove();
+  aiMove();
   noLoop();
 }
 
-function randomMove() {
-  if (currentPlayer == bot && winner === null) {
-    // Only when bot's turn
-    let valid = false; 
+// function randomMove() {
+//   if (currentPlayer == bot && winner === null) {
+//     // Only when bot's turn
+//     let valid = false; 
 
-    // Keep looping until empty space found
-    while(!valid){
-      let row = Math.floor(Math.random() * 3); // returns a random integer from 0 to 2 
-      let col = Math.floor(Math.random() * 3);
+//     // Keep looping until empty space found
+//     while(!valid){
+//       let row = Math.floor(Math.random() * 3); // returns a random integer from 0 to 2 
+//       let col = Math.floor(Math.random() * 3);
 
-      // If turn is valid (space not filled)
-      if (board[row][col] == 0) {
-        board[row][col] = bot;
+//       // If turn is valid (space not filled)
+//       if (board[row][col] == 0) {
+//         board[row][col] = bot;
         
-        // Check if move wins
-        checkWinner();
-        redraw();
+//         // Check if move wins
+//         checkWinner();
+//         redraw();
         
-        if(winner === null) {
-          currentPlayer = human;
-        }
+//         if(winner === null) {
+//           currentPlayer = human;
+//         }
         
-        valid = true;  // set true to break out of loop
-      }
-    }
-  }
-}
+//         valid = true;  // set true to break out of loop
+//       }
+//     }
+//   }
+// }
 
 function mouseClicked() {
   if (currentPlayer == human && winner === null) {
@@ -70,13 +69,15 @@ function mouseClicked() {
       
       if(winner === null) {
         currentPlayer = bot;
-        randomMove();
+        aiMove();
       }
     }
   }
 }
 
 function checkWinner() {
+  let openSpots;
+
   // Check Horizontal
   for (let i = 0; i < 3; i++) {
     // Add up row to see if winner. -3 means O wins. +3 means X wins. neither means no one wins
