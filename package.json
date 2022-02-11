@@ -18,6 +18,6 @@
   "homepage": "https://github.com/ktapia576/tic-tac-toe#readme",
   "dependencies": {
     "express": "^4.17.1",
-    "express-handlebars": "^4.0.4"
+    "express-handlebars": "^5.3.1"
   }
 }
